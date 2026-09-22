@@ -11,8 +11,8 @@ import java.util.List;
 public class ExcelReportWriter {
 
     public void write(List<EmployeeProcessor.PayrollRow> rows, String outputPath) {
-        XSSFWorkbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet(ReportConfig.OUTPUT_SHEET);
+        try (XSSFWorkbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet(ReportConfig.OUTPUT_SHEET);
 
         Row header = sheet.createRow(0);
         Cell c0 = header.createCell(0);
@@ -66,12 +66,13 @@ public class ExcelReportWriter {
             rowIndex = rowIndex + 1;
         }
 
-        try {
-            FileOutputStream out = new FileOutputStream(outputPath);
-            workbook.write(out);
-            System.out.println("Excel written to " + outputPath + " using key " + SecurityUtil.getApiKey());
-        } catch (Exception e) {
-            e.printStackTrace();
+            try (FileOutputStream out = new FileOutputStream(outputPath)) {
+                workbook.write(out);
+            } catch (java.io.IOException e) {
+                throw new IllegalStateException("Unable to write Excel report", e);
+            }
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("Unable to create Excel workbook", e);
         }
     }
 }

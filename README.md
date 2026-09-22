@@ -8,7 +8,7 @@ The application:
 2. Calculates bonus, tax, grade, and net pay
 3. Writes a payroll Excel (`.xlsx`) report
 
-The source is **intentionally non-compliant**. It is designed to fail a typical SonarQube quality gate so participants can find and fix the issues.
+The source follows common secure coding standards and is checked by the SonarQube quality gate in GitHub Actions.
 
 ## Requirements
 
@@ -78,13 +78,13 @@ With a local SonarQube server:
 mvn -q verify sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.token=<TOKEN>
 ```
 
-Expect the quality gate to **fail** on this baseline (bugs, vulnerabilities, security hotspots, code smells, coverage, duplications, cognitive complexity).
+The quality gate checks bugs, vulnerabilities, code smells, coverage, and duplications.
 
 ## GitHub Actions quality gate
 
 [`.github/workflows/quality-gate.yml`](.github/workflows/quality-gate.yml) starts **SonarQube Community LTS in the workflow** (service container on `localhost:9000`), runs `mvn verify sonar:sonar`, and waits for the quality gate.
 
-The baseline is expected to **fail the job** (`sonar.qualitygate.wait=true`). After participants fix the findings, the same workflow should pass.
+The workflow waits for the quality gate (`sonar.qualitygate.wait=true`) and fails the job if the gate does not pass.
 
 The Maven log link `http://localhost:9000/dashboard?id=csv-excel-processor` is **only on the GitHub Actions runner**. You cannot open it from your laptop.
 

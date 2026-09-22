@@ -8,7 +8,7 @@
     <artifactId>csv-excel-processor</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>CSV to Excel Processor (Coding Standards Demo)</name>
-    <description>Training demo that reads a CSV, processes rows, and writes an Excel report. Contains intentional SonarQube findings for a coding-standards workshop.</description>
+    <description>Application that reads a CSV, processes payroll rows, and writes an Excel report.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
