@@ -7,3 +7,4 @@ target/
 .vscode/
 *.xlsx
 !src/main/resources/**
+sonar-quality-gate-report/
